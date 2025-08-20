@@ -19,21 +19,13 @@ const appRouter = router({
   //     const user = await db.user.findById(input);
   //     return user;
   //   }),
-  userCreate: publicProcedure
-    .input(z.object({ name: z.string() }))
-    .mutation(async (opts) => {
-      const { input } = opts;
-      const user: typeof usersTable.$inferInsert = {
-        name: 'John',
-        age: 30,
-        email: 'john@example.com',
-      };
-      // const user = await db.user.create(input);
-
-      await db.insert(usersTable).values(user);
-      
-      return user;
-    }),
+  // userCreate: publicProcedure
+  //   .input(z.object({ name: z.string() }))
+  //   .mutation(async (opts) => {
+  //     const { input } = opts;
+  //     const user = await db.user.create(input);
+  //     return user;
+  //   }),
 });
 
 export type AppRouter = typeof appRouter;

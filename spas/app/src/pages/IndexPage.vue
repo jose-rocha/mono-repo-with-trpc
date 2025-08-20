@@ -6,6 +6,31 @@
       :todos="todos"
       :meta="meta"
     ></example-component>
+
+    <div class="q-pa-md" style="max-width: 350px">
+    <q-list bordered separator>
+      <template v-for="(user, i) in users" :key="i">
+        <q-item clickable v-ripple>
+          <q-item-section avatar>
+            <q-avatar color="primary" text-color="white">
+              {{ user.id }}
+            </q-avatar>
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label >{{ user.name }}</q-item-label>
+            <q-item-label caption lines="1">{{ user.email }}</q-item-label>
+          </q-item-section>
+
+
+          <q-item-section side>
+            <!-- <q-icon name="chat_bubble" color="green" /> -->
+             {{ user.age }}
+          </q-item-section>
+        </q-item>
+      </template>
+    </q-list>
+  </div>
   </q-page>
 </template>
 
@@ -19,10 +44,10 @@ import useCrudsAPIClient from 'src/composables/useCrudsAPIClient';
 //   const users =  useCrudsAPIClient();
 
 //   console.log(users);
-  
+
 // })()
 
-// const users = ref([]);
+const users = ref<{ id: number; name: string; age: number; email: string; }[]>([]);
 const apiClient = useCrudsAPIClient();
 
 void (async () => {
@@ -31,11 +56,11 @@ void (async () => {
     const userData = await apiClient.userList.query();
     // users.value = userData;
     console.log(userData);
-    
+    users.value = userData;
   } catch (error) {
     console.error('Failed to fetch users:', error);
   }
-  
+
 })();
 
 const todos = ref<Todo[]>([
